@@ -1,0 +1,75 @@
+<ion-content light-gray-gradient>
+    <div flex flex-columns style="height: 100%;">
+      <div flex flex-columns v-center style="height: 148px;" h-center>
+        <ion-img src="../../../assets/imgs/fb.png" style="width:100px"></ion-img>  
+        <h3 text-navy no-margin>{{ api.admin ? 'Admin' : 'User' }}</h3>
+      </div>
+      <form [formGroup]='registerForm' flex v-center flex-columns>
+          <mat-form-field size-md color="accent" appearance="outline">
+            <mat-label>User Name</mat-label>
+            <input matInput placeholder="display name" formControlName="name">
+            
+            <mat-error *ngIf="registerForm.controls.name.hasError('required')">
+            Name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field size-md color="accent" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="unique id" formControlName="email">
+            <mat-error *ngIf="registerForm.controls.email.hasError('email') && !registerForm.controls.email.hasError('required')">
+            Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls.email.hasError('required')">
+            Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        
+          <mat-form-field size-md color="accent" appearance="outline">
+              <mat-label>Password</mat-label>
+              <input matInput placeholder="Your secret" [type]="hide ? 'password' : 'text'" formControlName="password">
+              <button type="button" height-sm mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+              </button>
+                <mat-error *ngIf="registerForm.controls.password.hasError('required')">
+                Please Enter <strong>Password</strong>
+                </mat-error>
+                <mat-error *ngIf="registerForm.controls.password.hasError('minlength')">
+                Minimum length should be <strong>6</strong>
+                </mat-error>
+          </mat-form-field>
+
+          <mat-form-field size-md color="accent" appearance="outline">
+              <mat-label>Confirm Password</mat-label>
+              <input matInput placeholder="Your secret" [type]="c_hide ? 'password' : 'text'" formControlName="confirm_password">
+              <button type="button" height-sm mat-icon-button matSuffix (click)="c_hide = !c_hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{c_hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="registerForm.controls.confirm_password.hasError('required')">
+                    Please Confirm <strong>Password</strong>
+                </mat-error>
+                <mat-error *ngIf="registerForm.controls.confirm_password.hasError('mustMatch')">
+                    Both Passwords should be <strong>Match</strong>
+                </mat-error>
+          </mat-form-field>
+          
+          <mat-list>
+            
+              <mat-list-item>
+                  <button (click)="register()" mat-raised-button color="warn" init-btn style="width: 200px" [disabled]="!registerForm.valid">
+                        <span *ngIf="!api.loader">SignUp</span> 
+                        <ion-spinner name="dots" *ngIf="api.loader"></ion-spinner>
+                </button>
+              </mat-list-item>
+              <mat-list-item>
+                  <p text-center size-sm m-auto>Already have an account?</p>
+              </mat-list-item>
+              
+              <mat-list-item>
+                  <a mat-raised-button init-btn style="width: 200px" routerLink='/login'>LogIn</a>
+                  <mat-divider></mat-divider>
+              </mat-list-item>
+          </mat-list>
+      </form>
+    </div>
+</ion-content>

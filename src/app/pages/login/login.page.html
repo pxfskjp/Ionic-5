@@ -1,0 +1,50 @@
+<ion-content light-gray-gradient>
+    <div flex space-around flex-columns style="height: 100%;">
+      <div flex flex-columns v-center style="height: 192px; min-height: 190px">
+        <ion-img src="../../../assets/imgs/fb.png" style="width:100px"></ion-img>  
+        <h3 text-navy>{{ api.admin ? 'Admin' : 'User' }}</h3>
+      </div>
+      <form [formGroup]="loginForm" flex v-center flex-columns>
+          <mat-form-field size-md color="accent" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Email" formControlName="email">
+            <mat-error *ngIf="loginForm.controls.email.hasError('email') && !loginForm.controls.email.hasError('required')">
+            Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="loginForm.controls.email.hasError('required')">
+            Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        
+          <mat-form-field size-md color="accent" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Your secret" [type]="hide ? 'password' : 'text'" formControlName="password">
+            <button height-sm mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="loginForm.controls.password.hasError('required')">
+            Please Enter <strong>Password</strong>
+            </mat-error>
+            <mat-error *ngIf="loginForm.controls.password.hasError('minlength')">
+            Minimum length should be <strong>6</strong>
+            </mat-error>
+          </mat-form-field>
+          
+          <mat-list>
+              <mat-list-item>
+                  <button (click)="login()" mat-raised-button color="basic" init-btn style="width: 200px" [disabled]="!loginForm.valid">
+                      <span *ngIf="!api.loader">LogIn</span> 
+                      <ion-spinner name="dots" *ngIf="api.loader"></ion-spinner>
+                  </button>
+                  <mat-divider></mat-divider>
+              </mat-list-item>
+              <mat-list-item *ngIf="!api.admin">
+                  <p text-center size-sm m-auto>Not have an account?</p>
+              </mat-list-item>
+              <mat-list-item *ngIf="!api.admin">
+                  <a mat-raised-button color="warn" init-btn routerLink="/register" style="width: 200px">SignUp</a>
+              </mat-list-item>
+          </mat-list>
+      </form>
+    </div>
+</ion-content>

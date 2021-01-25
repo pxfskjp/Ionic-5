@@ -1,0 +1,24 @@
+ion-card {
+    width: 80%;
+}
+[flow-right] {
+    flex-flow: row-reverse;
+}
+
+
+[bg-sky] {
+    --background: #f8fafa;
+}
+[bg-white]{
+    --background: #fff;
+    --color: #000;
+}
+[bg-light] {
+    --background: #cfebb1;
+    --color: #000;
+}
+[light-time] {
+    color: #6a6a6a;
+    font-size: 0.7rem;
+    padding: 5px;
+}

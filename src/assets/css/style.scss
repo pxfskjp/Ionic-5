@@ -1,0 +1,119 @@
+/*
+* =========> Background-Color <===========
+**/
+[bg-yellow]{
+    background: #ffde59;
+}
+[bg-black] {
+    background: #2b2929ef !important;
+    --background: #2b2929ef !important; 
+}
+[bg-white] {
+    background: #ffffff;
+}
+
+/*
+* =================> Font-Colors <==============
+**/
+[color-yellow] {
+    color: #ffde59;
+}
+[color-black] {
+    color: #000000;
+}
+[color-white] {
+    color: #ffffff;
+}
+[color-gray] {
+    color: #808080;
+}
+/*
+* ============>  Other-Css   <============
+**/
+
+[m-auto] {
+    margin: auto;
+}
+[nrm-font-size] {
+    font-size: 1rem;
+}
+
+/*
+* ============>  Flex-Css   <============
+**/
+
+[flex] {
+    display: flex;
+}
+[v-center] {
+    align-items: center;
+}
+[h-center] {
+    justify-content: center;
+}
+[flex-columns] {
+    flex-direction: column;
+}
+[space-between] {
+    justify-content: space-between;
+}
+[space-around] {
+    justify-content: space-around;
+}
+[flex-wrap] {
+    flex-flow: wrap;
+}
+[full-width] {
+    width: 100%;
+}
+[full-height] {
+    height: 100%;
+}
+
+[_bg-theme-color] {
+	--background: #009688;
+	--color: #fff;
+}
+
+
+[col-6] {
+    width: 50%;
+}
+
+  
+[_bg-gray]{
+    --background: #f0eeee !important;
+    background: #f0eeee !important;
+  }
+[_bg-white]{
+    --background: #ffffff !important;
+    background: #ffffff !important;
+  }
+
+
+
+  [Bedge] {
+	background: #0ece07;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	color: white;
+	font-size: 0.7rem;
+	align-items: center;
+}
+
+[gray-time] {
+	color: gray;
+	font-size: 0.8rem;
+	padding: 0 0 5px 0;
+}
+
+[light-gray-gradient] {
+    --background: #f2f3f7;  /* fallback for old browsers */
+}
+
+[text-navy]{
+    color: #05055f;
+}

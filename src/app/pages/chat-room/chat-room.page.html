@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-toolbar _bg-theme-color>
+      <ion-icon *ngIf="api.admin" slot="start" name="arrow-round-back" padding style="padding-right: 0px" (click)="goBack()"></ion-icon>
+      <ion-avatar slot="start" padding>
+          <img src="../../../assets/imgs/avatar/avatar9.jpg">
+      </ion-avatar>
+      <ion-title no-padding>{{ user?.name }}</ion-title>
+      <ion-icon name="videocam" slot="end" padding></ion-icon>
+      <ion-icon name="call" slot="end" padding></ion-icon>
+      <ion-icon *ngIf="api.admin" name="more" slot="end" padding></ion-icon>
+      <ion-icon *ngIf="!api.admin" name="log-out" (click)="logout()" slot="end" padding></ion-icon>
+    </ion-toolbar>
+  </ion-header>
+
+
+<ion-content bg-sky>
+  <div *ngFor="let mess of messages">
+    <div flex flow-right *ngIf="mess.type==userType">
+        <ion-card bg-light>
+            <ion-card-content style="padding-bottom: 0px;">
+            {{ mess.msg }}  
+            </ion-card-content>
+            <p text-right no-margin light-time>{{ formatDate(mess) }}</p>
+        </ion-card>
+    </div>
+    <div flex *ngIf="mess.type!=userType">
+        <ion-card bg-white>
+            <ion-card-content style="padding-bottom: 0px;">
+            {{ mess.msg }}  
+            </ion-card-content>
+            <p text-right no-margin light-time>{{ formatDate(mess) }}</p>
+        </ion-card>
+    </div>
+  </div>
+  
+  <div *ngIf="loader" flex v-center h-center style="height: 100%;">
+      <ion-spinner name="crescent" color="success" style="width: 100px; height: 100px;"></ion-spinner>
+  </div>
+</ion-content>
+
+
+<ion-footer>
+    <ion-toolbar>
+        <div slot="start" padding>
+          😀
+        </div>
+        <ion-input [(ngModel)] = "chat"
+          placeholder="Type here..."
+        ></ion-input>
+        <ion-icon (click)="sendChat()" name="send" slot="end" padding></ion-icon>
+    </ion-toolbar>
+</ion-footer>
