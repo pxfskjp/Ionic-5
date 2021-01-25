@@ -90,14 +90,15 @@ export class ApiService {
     
   }
 
-  sendMsg(id: string, msg: string, type: string) {
+  sendMsg(id: string, to:string, msg: string, type: string) {
     let key = this.generateRandomString(16);
     this.db.collection("chatRoom/").doc(key).set({
-          type: type,
-          id: id,
-          key: key,
-          msg: msg,
-          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      type: type,
+      to: (to) ? to : 'admin',
+      id: id,
+      key: key,
+      msg: msg,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
     });
     
   }

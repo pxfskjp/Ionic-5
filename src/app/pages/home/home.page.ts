@@ -3,6 +3,9 @@ import { ApiService } from 'src/app/api/api.service';
 import { Router } from '@angular/router';
 import { QueryValueType } from '@angular/compiler/src/core';
 
+import { ModalController } from '@ionic/angular';
+import { ModalNewchatPage } from '../modal-newchat/modal-newchat.page';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -10,15 +13,23 @@ import { QueryValueType } from '@angular/compiler/src/core';
 })
 export class HomePage implements OnInit {
   usersList: any;
+  availableList: any;
   now: Date = new Date();
   
   constructor(
     private api: ApiService,
-    private router: Router
+    private router: Router,
+    public modalController: ModalController
   ) { 
-    this.getUsersList();
+    this.getUsersList();    
+  }
 
-    
+  async showModalChat() {
+    const modal = await this.modalController.create({
+      component: ModalNewchatPage,
+      componentProps: { data:this.availableList }
+    });
+    return await modal.present();
   }
 
   ngOnInit() {
@@ -31,8 +42,11 @@ export class HomePage implements OnInit {
   getUsersList() {
     this.api.db.collection("users")
     .onSnapshot((querySnapshot)=> {
-      this.usersList=[];
+      this.usersList     = [];
+      this.availableList = [];
+
       querySnapshot.forEach((doc) =>{
+        this.availableList.push(doc.data());
         this.api.db.collection("chatRoom")
           .where("id", "==", doc.id) 
           .orderBy("timestamp", "desc")

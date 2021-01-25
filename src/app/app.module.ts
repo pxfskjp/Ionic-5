@@ -12,9 +12,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage';
 import { AmdModule } from './amd.module';
 
+import { ModalNewchatPage } from './pages/modal-newchat/modal-newchat.page';
+
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [
+    AppComponent,
+    ModalNewchatPage
+  ],
+  entryComponents: [ModalNewchatPage],
   imports: [
     BrowserModule, 
     IonicModule.forRoot(), 

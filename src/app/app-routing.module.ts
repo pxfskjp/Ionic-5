@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'chat-room', loadChildren: './pages/chat-room/chat-room.module#ChatRoomPageModule', canActivate: [AuthGuard] },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule', canActivate: [ReAuthGuard]},
   { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule', canActivate: [ReAuthGuard]},
+  { path: 'modal-newchat', loadChildren: './pages/modal-newchat/modal-newchat.module#ModalNewchatPageModule', canActivate: [ReAuthGuard] },
 ];
 
 @NgModule({
