@@ -13,7 +13,7 @@ export class ChatRoomPage implements OnInit {
   unsubscribe: any;
   messages: any = [];
   chatKeys: any = [];
-  userType: string;
+  session: any;
   loader: boolean = true;
 
   constructor(
@@ -25,7 +25,7 @@ export class ChatRoomPage implements OnInit {
       this.user = snap['params'];
       this.getChat();
     });
-    this.userType = this.api.admin ? 'admin' : 'user';
+    this.session = localStorage.getItem('loggedIn') 
   }
 
   ngOnInit() {
@@ -36,7 +36,6 @@ export class ChatRoomPage implements OnInit {
   }
 
   logout() {
-    console.log('lgout');
     this.api.signOut();
   }
   
@@ -44,14 +43,13 @@ export class ChatRoomPage implements OnInit {
     this.chat ? console.log(this.chat) : '';
 
     if(this.chat){
-      this.api.sendMsg(this.user.id, '', this.chat, this.userType);
+      this.api.sendMsg(this.user.id, this.user.id, localStorage.getItem('loggedIn'), this.chat, 'user');
     }
 
     this.chat = '';
   }
 
   getChat() {
-    console.log('get chat', this.user.id);
     this.unsubscribe = this.api.db.collection("chatRoom").where("id", "==", this.user.id) 
     .onSnapshot((querySnapshot)=> {
         this.loader = false;

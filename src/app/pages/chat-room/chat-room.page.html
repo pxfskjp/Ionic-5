@@ -15,7 +15,7 @@
 
 <ion-content bg-sky>
   <div *ngFor="let mess of messages">
-    <div flex flow-right *ngIf="mess.type==userType">
+    <div flex flow-right *ngIf="mess.from==session">
         <ion-card bg-light>
             <ion-card-content style="padding-bottom: 0px;">
             {{ mess.msg }}  
@@ -23,7 +23,7 @@
             <p text-right no-margin light-time>{{ formatDate(mess) }}</p>
         </ion-card>
     </div>
-    <div flex *ngIf="mess.type!=userType">
+    <div flex *ngIf="mess.from!=session">
         <ion-card bg-white>
             <ion-card-content style="padding-bottom: 0px;">
             {{ mess.msg }}  
