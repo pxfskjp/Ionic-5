@@ -88,14 +88,11 @@ export class ApiService {
     
   }
 
-  sendMsg(id: string, to:string, from:string, msg: string, type: string) {
-    let key = this.generateRandomString(16);
-    this.db.collection("chatRoom/").doc(key).set({
-      type: type,
+  sendMsg(id: string, to:string, from:string, msg: string) {
+    this.db.collection("chatRoom/").doc(`${to}_${from}`).set({
       to: (to) ? to : 'admin',
       from: (from) ? from : 'admin',
-      id: id,
-      key: key,
+      id: this.generateRandomString(16),
       msg: msg,
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     });

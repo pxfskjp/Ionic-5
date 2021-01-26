@@ -16,10 +16,8 @@ export class ReAuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
       //const loggedIn = false; // replace with actual user auth checking logic
     let user = localStorage.getItem('loggedIn');
-     console.log({user});
       if (user) {
-        this.api.admin ? this.router.navigate(['/home'], { skipLocationChange: true }) : this.router.navigate(['/chat-room/'], { queryParams: { name: 'Messenger', id: user }, skipLocationChange: false });
-        console.log('login', user);
+        this.router.navigate(['/home'], { skipLocationChange: true })
       }
 
       return true;

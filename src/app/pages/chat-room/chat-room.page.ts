@@ -43,27 +43,54 @@ export class ChatRoomPage implements OnInit {
     this.chat ? console.log(this.chat) : '';
 
     if(this.chat){
-      this.api.sendMsg(this.user.id, this.user.id, localStorage.getItem('loggedIn'), this.chat, 'user');
+      this.api.sendMsg(this.user.id, this.user.id, this.session, this.chat);
     }
 
     this.chat = '';
   }
 
   getChat() {
-    this.unsubscribe = this.api.db.collection("chatRoom").where("id", "==", this.user.id) 
-    .onSnapshot((querySnapshot)=> {
+    var counter = 0;
+    var receiver = [];
+    var sender   = [];
+
+    // retrieve as receiver message
+    this.api.db.collection("chatRoom")
+      .where("from", "in", [this.user.id, this.session])
+      .onSnapshot((querySnapshot)=> {
         this.loader = false;
         querySnapshot.forEach((doc)=> {
             // doc.data() is never undefined for query doc snapshots
             let data = doc.data();
-            if(this.chatKeys.indexOf(data.key) < 0){
-              this.messages.push(data);
-              this.chatKeys.push(data.key);
-            }
-            console.log(doc.data());
+
+            if (data.from == this.user.id && data.to == this.session) {
+              if(this.chatKeys.indexOf(data.key) < 0){
+                receiver[counter++] = data;
+                this.chatKeys.push(data.key);
+              };
+            };
         });
-        this.messages.sort(this.sortDate);
-    });
+      });
+
+    // retrieve as sender message
+    this.api.db.collection("chatRoom")
+      .where("to", "in", [this.user.id, this.session])
+      .onSnapshot((querySnapshot)=> {
+        this.loader = false;
+        querySnapshot.forEach((doc)=> {
+            // doc.data() is never undefined for query doc snapshots
+            let data = doc.data();
+
+            if (data.from == this.session && data.to == this.user.id) {
+              if(this.chatKeys.indexOf(data.key) < 0){
+                sender.push(data);
+                this.chatKeys.push(data.key);
+              };
+            };
+        });
+      });
+
+      this.messages.sort(this.sortDate);
   }
 
   sortDate(a, b) {  
@@ -74,7 +101,7 @@ export class ChatRoomPage implements OnInit {
 
 
   ionViewWillLeave() {
-    this.api.admin ? this.unsubscribe() : '';
+    // this.api.admin ? this.unsubscribe() : '';
     console.log('unsubscribe successfully');
   }
 
