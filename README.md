@@ -1,6 +1,10 @@
 # ionic5-Chat
 This is ionic based messenger with firebase.
 
+# Install Method
+  1. npm install
+  2. ionic serve
+
 # Create account with firebase 
   1. google-service.json file and upload at root directory of the app
   2. Go to the root directory of the app run following command to install firebase package in your ionic app
