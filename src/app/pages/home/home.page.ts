@@ -12,6 +12,7 @@ import { ModalNewchatPage } from '../modal-newchat/modal-newchat.page';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+  session: any;
   usersList: any;
   availableList: any;
   now: Date = new Date();
@@ -21,7 +22,8 @@ export class HomePage implements OnInit {
     private router: Router,
     public modalController: ModalController
   ) { 
-    this.getUsersList();    
+    this.getUsersList();  
+    this.session = localStorage.getItem('loggedIn') 
   }
 
   async showModalChat() {

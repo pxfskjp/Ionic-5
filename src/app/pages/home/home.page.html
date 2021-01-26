@@ -10,7 +10,8 @@
 </ion-header>
 
 <ion-content>
-    <ion-item *ngFor="let usr of usersList" (click)="openChat(usr?.user)">
+    <ng-container *ngFor="let usr of usersList" (click)="openChat(usr?.user)">
+      <ion-item *ngIf="usr.user.id != session">
         <ion-avatar slot="start">
           <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==">
         </ion-avatar>
@@ -21,7 +22,8 @@
         <div>
             <p no-margin gray-time>{{ chatTime(usr?.lastMSG.timestamp) }}</p>
         </div>
-    </ion-item>
+      </ion-item>
+    </ng-container>
     <ion-item *ngIf="!usersList">
       <ion-avatar slot="start">
         <ion-skeleton-text animated></ion-skeleton-text>

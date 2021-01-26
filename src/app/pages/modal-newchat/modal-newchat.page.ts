@@ -11,13 +11,14 @@ import { Router } from '@angular/router';
 export class ModalNewchatPage implements OnInit {
   userData: any;
   modalData: any;
+  session: any;
 
   constructor(
     private router: Router,
     public navParams: NavParams,
     public modalCtrl: ModalController
   ) { 
-
+     this.session = localStorage.getItem('loggedIn') 
   }
 
   ngOnInit() {

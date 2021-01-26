@@ -44,7 +44,7 @@ export class ChatRoomPage implements OnInit {
     this.chat ? console.log(this.chat) : '';
 
     if(this.chat){
-      this.api.sendMsg(this.user.id, this.chat, this.userType);
+      this.api.sendMsg(this.user.id, '', this.chat, this.userType);
     }
 
     this.chat = '';
