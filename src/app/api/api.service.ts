@@ -11,7 +11,6 @@ export class ApiService {
   loader: boolean = false;
   user: any;
   db: any;
-  admin: boolean = true;
 
   constructor(
     private snack: SnackbarService,
@@ -35,8 +34,7 @@ export class ApiService {
       };
 
       localStorage.setItem('loggedIn', this.user.id); 
-      this.admin ? this.router.navigate(['/home'], { skipLocationChange: false }) : this.router.navigate(['/chat-room/'], { queryParams: { name: 'Messenger', id: this.user.id }, skipLocationChange: false });
-      console.log('login', user);
+      this.router.navigate(['/home'], { skipLocationChange: false })
     })
     .catch((error)=> {
       // Handle Errors here.
@@ -66,8 +64,8 @@ export class ApiService {
         id: this.user.id
       });
 
-      this.router.navigate(['/chat-room/'], { queryParams: { name: 'Messenger', id: this.user.id }, skipLocationChange: false })
-      console.log('register', user);
+      // redirect to home
+      this.router.navigate(['/home'], { skipLocationChange: false })
     })
     .catch((error)=> {
       // Handle Errors here.

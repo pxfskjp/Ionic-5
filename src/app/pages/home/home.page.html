@@ -11,7 +11,7 @@
 
 <ion-content>
     <ng-container *ngFor="let usr of usersList">
-      <ion-item *ngIf="usr.user.from != session" (click)="openChat(usr?.user)">
+      <ion-item *ngIf="usr.lastMSG.from == session || usr.lastMSG.to == session" (click)="openChat(usr?.user)">
         <ion-avatar slot="start">
           <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==">
         </ion-avatar>
