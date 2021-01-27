@@ -32,7 +32,7 @@ export class ChatRoomPage implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/home'], { skipLocationChange: false });
+    this.router.navigate(['/home'], { replaceUrl : true, skipLocationChange: false });
   }
 
   logout() {
@@ -50,47 +50,25 @@ export class ChatRoomPage implements OnInit {
   }
 
   getChat() {
-    var counter = 0;
-    var receiver = [];
-    var sender   = [];
-
     // retrieve as receiver message
     this.api.db.collection("chatRoom")
-      .where("from", "in", [this.user.id, this.session])
+      .where('id', 'array-contains',this.session)
       .onSnapshot((querySnapshot)=> {
         this.loader = false;
         querySnapshot.forEach((doc)=> {
             // doc.data() is never undefined for query doc snapshots
             let data = doc.data();
 
-            if (data.from == this.user.id && data.to == this.session) {
+            if ((data.from == this.user.id && data.to == this.session) || 
+                (data.from == this.session && data.to == this.user.id)) {
               if(this.chatKeys.indexOf(data.key) < 0){
-                receiver[counter++] = data;
+                this.messages.push(data);
                 this.chatKeys.push(data.key);
               };
             };
         });
+        this.messages.sort(this.sortDate);
       });
-
-    // retrieve as sender message
-    this.api.db.collection("chatRoom")
-      .where("to", "in", [this.user.id, this.session])
-      .onSnapshot((querySnapshot)=> {
-        this.loader = false;
-        querySnapshot.forEach((doc)=> {
-            // doc.data() is never undefined for query doc snapshots
-            let data = doc.data();
-
-            if (data.from == this.session && data.to == this.user.id) {
-              if(this.chatKeys.indexOf(data.key) < 0){
-                sender.push(data);
-                this.chatKeys.push(data.key);
-              };
-            };
-        });
-      });
-
-      this.messages.sort(this.sortDate);
   }
 
   sortDate(a, b) {  
