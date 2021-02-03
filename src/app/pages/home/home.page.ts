@@ -22,8 +22,8 @@ export class HomePage implements OnInit {
     private router: Router,
     public modalController: ModalController
   ) { 
-    this.getUsersList();  
-    this.session = localStorage.getItem('loggedIn') 
+    this.session = localStorage.getItem('loggedIn')
+    this.getUsersList();
   }
 
   async showModalChat() {
@@ -48,15 +48,18 @@ export class HomePage implements OnInit {
       this.availableList = [];
 
       querySnapshot.forEach((doc) =>{
-        this.availableList.push(doc.data());
+        var userData = doc.data();
+
+        this.availableList.push(userData);
+
         this.api.db.collection("chatRoom")
-          .where("id", "==", doc.id) 
+          .where('id', 'array-contains',this.session)
           .orderBy("timestamp", "desc")
           .limit(1)
           .onSnapshot((querySnapshot)=> {
               querySnapshot.forEach((result) => {
                 this.usersList.push({
-                  user: doc.data(),
+                  user: userData,
                   lastMSG: result.data()
                 });
               });
