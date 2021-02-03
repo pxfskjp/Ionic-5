@@ -17,7 +17,7 @@
         </ion-avatar>
         <ion-label>
           <strong>{{ usr?.user.name == session ? usr?.lastMSG.from : usr?.user.name }}</strong>
-          <p>{{ usr?.lastMSG.msg }}</p>
+          <p>{{ usr?.lastMSG?.msg }}</p>
         </ion-label>
         <div>
             <p no-margin gray-time>{{ chatTime(usr?.lastMSG.timestamp) }}</p>

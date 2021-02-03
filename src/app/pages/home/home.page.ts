@@ -53,7 +53,7 @@ export class HomePage implements OnInit {
         this.availableList.push(userData);
 
         this.api.db.collection("chatRoom")
-          .where('id', 'array-contains',this.session)
+          .where('id', 'array-contains', userData.id)
           .orderBy("timestamp", "desc")
           .limit(1)
           .onSnapshot((querySnapshot)=> {

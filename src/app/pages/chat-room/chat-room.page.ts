@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IonContent } from '@ionic/angular';
 import { ApiService } from 'src/app/api/api.service';
 
 @Component({
@@ -8,6 +9,8 @@ import { ApiService } from 'src/app/api/api.service';
   styleUrls: ['./chat-room.page.scss'],
 })
 export class ChatRoomPage implements OnInit {
+  @ViewChild(IonContent, {static: true}) content: IonContent;
+
   user: any;
   chat: string;
   unsubscribe: any;
@@ -31,6 +34,10 @@ export class ChatRoomPage implements OnInit {
   ngOnInit() {
   }
 
+  ionViewDidEnter(){
+    this.content.scrollToBottom();
+  }
+
   goBack() {
     this.router.navigate(['/home'], { replaceUrl : true, skipLocationChange: false });
   }
@@ -47,6 +54,8 @@ export class ChatRoomPage implements OnInit {
     }
 
     this.chat = '';
+
+    this.content.scrollToBottom();
   }
 
   getChat() {
@@ -71,7 +80,7 @@ export class ChatRoomPage implements OnInit {
       });
   }
 
-  sortDate(a, b) {  
+  sortDate(a, b) {
     var dateA = new Date(a.timestamp.toDate()); 
     var dateB = new Date(b.timestamp.toDate()); 
     return dateA > dateB ? 1 : -1;  

@@ -13,7 +13,7 @@
   </ion-header>
 
 
-<ion-content bg-sky>
+<ion-content bg-sky #content>
   <div *ngFor="let mess of messages">
     <div flex flow-right *ngIf="mess.from==session">
         <ion-card bg-light>
@@ -45,6 +45,7 @@
           😀
         </div>
         <ion-input [(ngModel)] = "chat"
+          (keyup.enter)="sendChat()"
           placeholder="Type here..."
         ></ion-input>
         <ion-icon (click)="sendChat()" name="send" slot="end" padding></ion-icon>
